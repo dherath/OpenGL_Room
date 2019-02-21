@@ -12,11 +12,9 @@ int moving, startx, starty;
 int lightMoving = 0, lightStartX, lightStartY;
 
 static GLfloat lightPosition[4];
-static GLfloat lightColor[] = {1.0f, 1.0f, 0.8f, 0.5f }; /* green-tinted */
+static GLfloat lightColor[] = { 1.0f, 1.0f, 0.8f, 0.5f }; // green-tinted
 
-static void idle(void)
-{
-
+static void idle(void) {
 	if (!lightMoving) {
 		lightAngle += 0.005f;
 	}

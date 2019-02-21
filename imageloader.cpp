@@ -1,4 +1,3 @@
-
 #include <assert.h>
 #include <fstream>
 
@@ -7,7 +6,7 @@
 using namespace std;
 
 Image::Image(char* ps, int w, int h) : pixels(ps), width(w), height(h) {
-	
+
 }
 
 Image::~Image() {
@@ -46,66 +45,66 @@ namespace {
 	//Just like auto_ptr, but for arrays
 	template<class T>
 	class auto_array {
-		private:
-			T* array;
-			mutable bool isReleased;
-		public:
-			explicit auto_array(T* array_ = NULL) :
+	private:
+		T* array;
+		mutable bool isReleased;
+	public:
+		explicit auto_array(T* array_ = NULL) :
 				array(array_), isReleased(false) {
-			}
+		}
 			
-			auto_array(const auto_array<T> &aarray) {
-				array = aarray.array;
-				isReleased = aarray.isReleased;
-				aarray.isReleased = true;
-			}
+		auto_array(const auto_array<T> &aarray) {
+			array = aarray.array;
+			isReleased = aarray.isReleased;
+			aarray.isReleased = true;
+		}
 			
-			~auto_array() {
-				if (!isReleased && array != NULL) {
-					delete[] array;
-				}
+		~auto_array() {
+			if (!isReleased && array != NULL) {
+				delete[] array;
 			}
+		}
 			
-			T* get() const {
-				return array;
-			}
+		T* get() const {
+			return array;
+		}
 			
-			T &operator*() const {
-				return *array;
-			}
+		T &operator*() const {
+			return *array;
+		}
 			
-			void operator=(const auto_array<T> &aarray) {
-				if (!isReleased && array != NULL) {
-					delete[] array;
-				}
-				array = aarray.array;
-				isReleased = aarray.isReleased;
-				aarray.isReleased = true;
+		void operator=(const auto_array<T> &aarray) {
+			if (!isReleased && array != NULL) {
+				delete[] array;
 			}
+			array = aarray.array;
+			isReleased = aarray.isReleased;
+			aarray.isReleased = true;
+		}
 			
-			T* operator->() const {
-				return array;
-			}
+		T* operator->() const {
+			return array;
+		}
 			
-			T* release() {
-				isReleased = true;
-				return array;
-			}
+		T* release() {
+			isReleased = true;
+			return array;
+		}
 			
-			void reset(T* array_ = NULL) {
-				if (!isReleased && array != NULL) {
-					delete[] array;
-				}
-				array = array_;
+		void reset(T* array_ = NULL) {
+			if (!isReleased && array != NULL) {
+				delete[] array;
 			}
+			array = array_;
+		}
 			
-			T* operator+(int i) {
-				return array + i;
-			}
+		T* operator+(int i) {
+			return array + i;
+		}
 			
-			T &operator[](int i) {
-				return array[i];
-			}
+		T &operator[](int i) {
+			return array[i];
+		}
 	};
 }
 
@@ -168,7 +167,7 @@ Image* loadBMP(const char* filename) {
 		for(int x = 0; x < width; x++) {
 			for(int c = 0; c < 3; c++) {
 				pixels2[3 * (width * y + x) + c] =
-					pixels[bytesPerRow * y + 3 * x + (2 - c)];
+						pixels[bytesPerRow * y + 3 * x + (2 - c)];
 			}
 		}
 	}
@@ -176,12 +175,3 @@ Image* loadBMP(const char* filename) {
 	input.close();
 	return new Image(pixels2.release(), width, height);
 }
-
-
-
-
-
-
-
-
-
